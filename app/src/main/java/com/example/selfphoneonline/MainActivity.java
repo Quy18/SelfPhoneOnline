@@ -1,6 +1,8 @@
 package com.example.selfphoneonline;
 
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ViewFlipper;
@@ -47,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
         }
         viewFlipper.setFlipInterval(3000);
         viewFlipper.setAutoStart(true);
+        Animation slide_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_right);
+        Animation slide_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_out_right);
+        viewFlipper.setInAnimation(slide_in);
+        viewFlipper.setOutAnimation(slide_out);
     }
 
     private void ActionBar() {
@@ -65,7 +71,5 @@ public class MainActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.navigationview);
         listViewManHinhChinh = findViewById(R.id.listviewmanhinhchinh);
         drawerLayout = findViewById(R.id.drawerLayout);
-        // adgsh dvbndghndgs
-        //ạkfagb
     }
 }
