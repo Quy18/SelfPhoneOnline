@@ -66,5 +66,6 @@ public class MainActivity extends AppCompatActivity {
         listViewManHinhChinh = findViewById(R.id.listviewmanhinhchinh);
         drawerLayout = findViewById(R.id.drawerLayout);
         // adgsh dvbndghndgs
+        //ạkfagb
     }
 }
