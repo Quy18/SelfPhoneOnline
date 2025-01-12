@@ -55,12 +55,11 @@ public class MainActivity extends AppCompatActivity {
         ActionBar();
 
         if (isConnected(this)){
-            Toast.makeText(getApplicationContext(), "Kết nối thành công", Toast.LENGTH_SHORT).show();
             ActionViewFlipper();
-            // Lấy dữ liệu từ API
+            // Lấy dữ liệu LoaiSp từ API
             getLoaiSanPham();
         }else {
-            Toast.makeText(getApplicationContext(), "Kết nối thất bại", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Không có internet", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -71,7 +70,9 @@ public class MainActivity extends AppCompatActivity {
                 .subscribe(
                         loaiSpModel -> {
                             if (loaiSpModel.isSuccess()) {
-                                Toast.makeText(getApplicationContext(), loaiSpModel.getResult().get(0).getTensanpham(), Toast.LENGTH_SHORT).show();
+                                arrLoaiSp = loaiSpModel.getResult();
+                                loaiSpAdapter = new LoaiSpAdapter(getApplicationContext(), arrLoaiSp);
+                                listViewManHinhChinh.setAdapter(loaiSpAdapter);
                             }
                         }
                 )
@@ -119,10 +120,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Khởi tạo danh sách sản phẩm
         arrLoaiSp = new ArrayList<>();
-
-        // Khởi tạo Adapter
-        loaiSpAdapter = new LoaiSpAdapter(getApplicationContext(), arrLoaiSp);
-        listViewManHinhChinh.setAdapter(loaiSpAdapter);
     }
 
     private boolean isConnected(Context context){
@@ -134,5 +131,11 @@ public class MainActivity extends AppCompatActivity {
         }else{
             return false;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        compositeDisposable.clear();
+        super.onDestroy();
     }
 }

@@ -2,19 +2,20 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
-    android:layout_marginTop="5dp"
+    android:layout_marginTop="15dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <ImageView
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_marginLeft="10dp"
         android:id="@+id/item_image"
         android:src="@drawable/ic_media_24" />
     <TextView
         android:id="@+id/item_tensp"
         android:text="Điện thoại"
-        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textSize="20sp"
         android:layout_marginLeft="10dp"
         android:layout_gravity="center"
         android:textColor="@android:color/holo_red_light"
