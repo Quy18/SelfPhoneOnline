@@ -15,12 +15,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.selfphoneonline.R;
 import com.example.selfphoneonline.adapter.LoaiSpAdapter;
-import com.example.selfphoneonline.module.LoaiSp;
+import com.example.selfphoneonline.adapter.SanPhamMoiAdapter;
+import com.example.selfphoneonline.model.LoaiSp;
+import com.example.selfphoneonline.model.SanPhamMoi;
 import com.example.selfphoneonline.retrofit.ApiBanHang;
 import com.example.selfphoneonline.retrofit.RetrofitClient;
 import com.example.selfphoneonline.utils.Utils;
@@ -44,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     List<LoaiSp> arrLoaiSp;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     ApiBanHang apiBanHang;
+    List<SanPhamMoi> arrSpMoi;
+    SanPhamMoiAdapter sanPhamMoiAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +63,29 @@ public class MainActivity extends AppCompatActivity {
             ActionViewFlipper();
             // Lấy dữ liệu LoaiSp từ API
             getLoaiSanPham();
+            getSanPhamMoi();
         }else {
             Toast.makeText(getApplicationContext(), "Không có internet", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void getSanPhamMoi() {
+        compositeDisposable.add(apiBanHang.getSanPhamMoi()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        sanPhamMoiModel -> {
+                            if (sanPhamMoiModel.isSuccess()) {
+                                arrSpMoi = sanPhamMoiModel.getResult();
+                                sanPhamMoiAdapter = new SanPhamMoiAdapter(getApplicationContext(), arrSpMoi);
+                                recyclerViewManHinhChinh.setAdapter(sanPhamMoiAdapter);
+                            }
+                        },
+                        throwable -> {
+                            Toast.makeText(getApplicationContext(),"Không kết nối được với server!" + throwable.getMessage(),Toast.LENGTH_SHORT).show();
+                        }
+                )
+        );
     }
 
     private void getLoaiSanPham() {
@@ -114,12 +139,16 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbarmanhinhchinh);
         viewFlipper = findViewById(R.id.viewflipper);
         recyclerViewManHinhChinh = findViewById(R.id.recycleview);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
+        recyclerViewManHinhChinh.setLayoutManager(layoutManager);
+        recyclerViewManHinhChinh.setHasFixedSize(true);
         navigationView = findViewById(R.id.navigationview);
         listViewManHinhChinh = findViewById(R.id.listviewmanhinhchinh);
         drawerLayout = findViewById(R.id.drawerLayout);
 
         // Khởi tạo danh sách sản phẩm
         arrLoaiSp = new ArrayList<>();
+        arrSpMoi = new ArrayList<>();
     }
 
     private boolean isConnected(Context context){

@@ -1,4 +1,4 @@
-package com.example.selfphoneonline.module;
+package com.example.selfphoneonline.model;
 
 public class LoaiSp {
     private int id;

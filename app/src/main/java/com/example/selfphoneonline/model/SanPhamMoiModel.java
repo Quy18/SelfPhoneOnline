@@ -1,11 +1,11 @@
-package com.example.selfphoneonline.module;
+package com.example.selfphoneonline.model;
 
 import java.util.List;
 
-public class LoaiSpModel {
+public class SanPhamMoiModel {
     boolean success;
     String message;
-    List<LoaiSp> result;
+    List<SanPhamMoi> result;
 
     public boolean isSuccess() {
         return success;
@@ -23,11 +23,11 @@ public class LoaiSpModel {
         this.message = message;
     }
 
-    public List<LoaiSp> getResult() {
+    public List<SanPhamMoi> getResult() {
         return result;
     }
 
-    public void setResult(List<LoaiSp> result) {
+    public void setResult(List<SanPhamMoi> result) {
         this.result = result;
     }
 }

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.selfphoneonline.R;
-import com.example.selfphoneonline.module.LoaiSp;
+import com.example.selfphoneonline.model.LoaiSp;
 
 import java.util.List;
 
