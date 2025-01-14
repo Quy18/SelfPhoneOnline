@@ -1,11 +1,14 @@
 package com.example.selfphoneonline.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -61,12 +64,34 @@ public class MainActivity extends AppCompatActivity {
 
         if (isConnected(this)){
             ActionViewFlipper();
-            // Lấy dữ liệu LoaiSp từ API
-            getLoaiSanPham();
+            // Lấy dữ liệu từ API để hiển thị category
+            getCategory();
+            // Hiển thị sản phẩm mới
             getSanPhamMoi();
+            // Xử lý sự kiện click item category
+            getEvenClick();
         }else {
             Toast.makeText(getApplicationContext(), "Không có internet", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void getEvenClick() {
+        listViewManHinhChinh.setOnItemClickListener((adapterView, view, i, l) -> {
+            switch (i){
+                case 0:
+                    Intent trangchu = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(trangchu);
+                    break;
+                case 1:
+                    Intent dienthoai = new Intent(getApplicationContext(), DienThoaiActivity.class);
+                    startActivity(dienthoai);
+                    break;
+                case 2:
+                    Intent laptop = new Intent(getApplicationContext(), LaptopActivity.class);
+                    startActivity(laptop);
+                    break;
+            }
+        });
     }
 
     private void getSanPhamMoi() {
@@ -88,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-    private void getLoaiSanPham() {
+    private void getCategory() {
         compositeDisposable.add(apiBanHang.getLoaiSp()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
