@@ -13,9 +13,10 @@
         <ImageView
             android:id="@+id/item_giohang_image"
             android:scaleType="centerCrop"
+            android:layout_margin="3dp"
             android:src="@drawable/icon_new"
             android:layout_width="100dp"
-            android:layout_height="100dp"/>
+            android:layout_height="130dp"/>
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"

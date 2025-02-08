@@ -54,7 +54,7 @@
             android:padding="5dp"
             android:layout_weight="1"
             android:id="@+id/txttongtien"
-            android:text="50.000"
+            android:text="00.000"
             android:layout_marginRight="20dp"
             android:gravity="right"
             android:textColor="@android:color/holo_red_light"
