@@ -1,5 +1,6 @@
 package com.example.selfphoneonline.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.example.selfphoneonline.Interface.ImageClickListenner;
 import com.example.selfphoneonline.R;
 import com.example.selfphoneonline.model.EventBus.TinhTongEvent;
 import com.example.selfphoneonline.model.GioHang;
+import com.example.selfphoneonline.utils.Utils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -53,18 +55,38 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.MyViewHo
                 if(gioHangList.get(position).getSoluong() > 1){
                     int soluongmoi = gioHangList.get(position).getSoluong() - 1;
                     gioHangList.get(position).setSoluong(soluongmoi);
+
+                    holder.item_giohang_soluong.setText(gioHangList.get(position).getSoluong() + " ");
+                    long gia1 = gioHangList.get(position).getSoluong() * gioHangList.get(position).getGiasp();
+                    holder.item_giohang_giasp2.setText(decimalFormat.format(gia1) + "Đ");
+                    // Sử dụng thư viện để đẩy sử kiện click cong-tru lên MainActivity. vì tổng total nằm ở bên MainActivity
+                    EventBus.getDefault().postSticky(new TinhTongEvent());
+                }else if(gioHangList.get(position).getSoluong() == 1){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getRootView().getContext());
+                    builder.setTitle("Thông báo.");
+                    builder.setMessage("Bạn có muốn xóa sản phẩm này khỏi giỏ hàng không ?");
+                    builder.setPositiveButton("Có", (dialogInterface, i) -> {
+                        Utils.manggiohang.remove(position);
+                        notifyDataSetChanged();
+                        EventBus.getDefault().postSticky(new TinhTongEvent());
+                    });
+                    builder.setNegativeButton("Hủy", (dialogInterface, i) -> {
+                        dialogInterface.dismiss();
+                    });
+                    builder.show();
                 }
             }else if(giatri == 2){
                 if (gioHangList.get(position).getSoluong() < 10){
                     int soluongmoi = gioHangList.get(position).getSoluong() + 1;
                     gioHangList.get(position).setSoluong(soluongmoi);
                 }
+                holder.item_giohang_soluong.setText(gioHangList.get(position).getSoluong() + " ");
+                long gia1 = gioHangList.get(position).getSoluong() * gioHangList.get(position).getGiasp();
+                holder.item_giohang_giasp2.setText(decimalFormat.format(gia1) + "Đ");
+                // Sử dụng thư viện để đẩy sử kiện click cong-tru lên MainActivity. vì tổng total nằm ở bên MainActivity
+                EventBus.getDefault().postSticky(new TinhTongEvent());
             }
-            holder.item_giohang_soluong.setText(gioHangList.get(position).getSoluong() + " ");
-            long gia1 = gioHangList.get(position).getSoluong() * gioHangList.get(position).getGiasp();
-            holder.item_giohang_giasp2.setText(decimalFormat.format(gia1) + "Đ");
-            // Sử dụng thư viện để đẩy sử kiện click cong-tru lên MainActivity. vì tổng total nằm ở bên MainActivity
-            EventBus.getDefault().postSticky(new TinhTongEvent());
+
         });
     }
 
