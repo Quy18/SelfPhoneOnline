@@ -62,4 +62,7 @@ dependencies {
 
     //paper
     implementation("io.github.pilgr:paperdb:2.7.1")
+
+    //Gson
+    implementation("com.google.code.gson:gson:2.8.9")
 }

@@ -28,7 +28,7 @@ public class GioHangActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     Button btnmuahang;
     GioHangAdapter adapter;
-
+    long tongtiensp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +39,7 @@ public class GioHangActivity extends AppCompatActivity {
     }
 
     private void tinhTongTien() {
-        long tongtiensp = 0;
+        tongtiensp = 0;
         for (int i = 0; i < Utils.manggiohang.size(); i++) {
             tongtiensp = tongtiensp + (Utils.manggiohang.get(i).getGiasp() * Utils.manggiohang.get(i).getSoluong());
         }
@@ -67,6 +67,7 @@ public class GioHangActivity extends AppCompatActivity {
         }
         btnmuahang.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), ThanhToanActivity.class);
+            intent.putExtra("tongtien", tongtiensp);
             startActivity(intent);
         });
     }
