@@ -2,6 +2,7 @@ package com.example.selfphoneonline.retrofit;
 
 
 
+import com.example.selfphoneonline.model.DonHangModel;
 import com.example.selfphoneonline.model.LoaiSpModel;
 import com.example.selfphoneonline.model.SanPhamMoiModel;
 import com.example.selfphoneonline.model.UserModel;
@@ -56,5 +57,11 @@ public interface ApiBanHang {
             @Field("soluong") int soluong,
             @Field("tongtien") String tongtien,
             @Field("chitiet") String chitiet
+    );
+
+    @POST("xemdonhang.php")
+    @FormUrlEncoded
+    Observable<DonHangModel> xemDonHang(
+            @Field("iduser") int iduser
     );
 }
