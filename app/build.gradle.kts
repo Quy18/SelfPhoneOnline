@@ -65,4 +65,7 @@ dependencies {
 
     //Gson
     implementation("com.google.code.gson:gson:2.8.9")
+
+    //Lottie
+    implementation("com.airbnb.android:lottie:6.6.3")
 }

@@ -83,7 +83,9 @@ public class DangNhapActivity extends AppCompatActivity {
             if(Paper.book().read("isLogin") != null) {
                 boolean flag = Paper.book().read("isLogin");
                 if (flag){
-                    new Handler().postDelayed(() -> autodangNhap(Paper.book().read("email"), Paper.book().read("pass")),1000);
+                    new Handler().postDelayed(() -> {
+//                        autodangNhap(Paper.book().read("email"), Paper.book().read("pass"));
+                    },1000);
                 }
             }
         }
@@ -99,6 +101,8 @@ public class DangNhapActivity extends AppCompatActivity {
                                 isLogin = true;
                                 Paper.book().write("isLogin", isLogin);
                                 Utils.user_current = userModel.getResult().get(0);
+                                // luu lai thong tin nguoi dung
+                                Paper.book().write("user", userModel.getResult().get(0));
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);
                                 finish();
