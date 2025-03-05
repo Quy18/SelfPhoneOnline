@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     SanPhamMoiAdapter sanPhamMoiAdapter;
     NotificationBadge badge;
     FrameLayout frameLayout;
+    ImageView imgsearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawerLayout);
         badge = findViewById(R.id.menu_sl);
         frameLayout = findViewById(R.id.framegiohang);
+        imgsearch = findViewById(R.id.imgsearch);
 
         // Khởi tạo danh sách sản phẩm
         arrLoaiSp = new ArrayList<>();
@@ -200,6 +202,11 @@ public class MainActivity extends AppCompatActivity {
         frameLayout.setOnClickListener(view -> {
            Intent giohang = new Intent(getApplicationContext(), GioHangActivity.class);
            startActivity(giohang);
+        });
+
+        imgsearch.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+            startActivity(intent);
         });
     }
 
